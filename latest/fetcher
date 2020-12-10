@@ -1,0 +1,20 @@
+#!/bin/sh
+
+help() {
+    echo "Usage: $0"
+    echo "SOURCE_URL, DESTINATION_PATH environment variables must be set"
+}
+
+if [ -z "$SOURCE_URL" ] || [ -z "$DESTINATION_PATH" ]
+then
+    help
+    exit 1
+fi
+
+aws s3 cp "$SOURCE_URL" - | tar -C "$DESTINATION_PATH" -x
+
+if [ -n "$OWNER_USERID" ]
+then
+    chown -R "$OWNER_USERID" "$DESTINATION_PATH"
+fi
+
