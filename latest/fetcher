@@ -1,10 +1,13 @@
 #!/bin/sh
 
+set -euo pipefail
+
 help() {
     echo "Usage: $0"
     echo "SOURCE_URL, DESTINATION_PATH environment variables must be set"
 }
 
+OWNER_USERID="${OWNER_USERID:-}"
 if [ -z "$SOURCE_URL" ] || [ -z "$DESTINATION_PATH" ]
 then
     help
