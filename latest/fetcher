@@ -14,6 +14,11 @@ then
     exit 1
 fi
 
+if [ -n "$CLEAN_DESTINATION_PATH" ]
+then
+    rm -rf "$DESTINATION_PATH/*"
+fi
+
 aws s3 cp "$SOURCE_URL" - | tar -C "$DESTINATION_PATH" -x
 
 if [ -n "$OWNER_USERID" ]
