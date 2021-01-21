@@ -8,6 +8,10 @@ help() {
 }
 
 OWNER_USERID="${OWNER_USERID:-}"
+CLEAN_DESTINATION_PATH=""
+AWS_SECRET_ACCESS_KEY_FILE=""
+AWS_ACCESS_KEY_ID_FILE=""
+
 if [ -z "$SOURCE_URL" ] || [ -z "$DESTINATION_PATH" ]
 then
     help
@@ -17,6 +21,14 @@ fi
 if [ -n "$CLEAN_DESTINATION_PATH" ]
 then
     rm -rf "$DESTINATION_PATH/*"
+fi
+
+if [ -n "$AWS_ACCESS_KEY_ID_FILE" ]; then
+    export AWS_ACCESS_KEY_ID="$(cat $AWS_ACCESS_KEY_ID_FILE)"
+fi
+
+if [ -n "$AWS_SECRET_ACCESS_KEY_FILE" ]; then
+    export AWS_SECRET_ACCESS_KEY="$(cat $AWS_SECRET_ACCESS_KEY_FILE)"
 fi
 
 aws s3 cp "$SOURCE_URL" - | tar -C "$DESTINATION_PATH" -x
