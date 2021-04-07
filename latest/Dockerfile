@@ -2,6 +2,7 @@ FROM alpine:3.12.8
 LABEL description="S3 archive fetcher"
 
 RUN apk --no-cache --update add \
+  bash \
   ca-certificates \
   grep \
   pigz \
