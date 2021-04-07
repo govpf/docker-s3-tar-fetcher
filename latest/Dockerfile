@@ -3,6 +3,7 @@ LABEL description="S3 archive fetcher"
 
 RUN apk --no-cache --update add \
   ca-certificates \
+  grep \
   pigz \
   tar
 
