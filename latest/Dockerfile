@@ -1,4 +1,4 @@
-FROM alpine:3.12.1
+FROM alpine:latest
 LABEL description="S3 archive fetcher"
 
 RUN apk --no-cache --update add \
