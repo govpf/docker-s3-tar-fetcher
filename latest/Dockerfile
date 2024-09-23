@@ -6,7 +6,8 @@ RUN apk --no-cache --update add \
   ca-certificates \
   grep \
   pigz \
-  tar
+  tar \
+  tzdata
 
 # Required to enable the helper to load IRSA roles
 ENV AWS_SDK_LOAD_CONFIG=1
