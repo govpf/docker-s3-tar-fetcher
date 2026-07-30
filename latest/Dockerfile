@@ -1,22 +1,24 @@
-FROM alpine:3.15
+FROM alpine:3.23
+
 LABEL description="S3 archive fetcher"
 
 RUN apk --no-cache --update add \
-  bash \
-  ca-certificates \
-  grep \
-  pigz \
-  tar \
-  tzdata
+    bash \
+    ca-certificates \
+    grep \
+    pigz \
+    tar \
+    tzdata \
+    python3 \
+    py3-pip \
+    && python3 -m venv /opt/awscli \
+    && /opt/awscli/bin/pip install --no-cache-dir "awscli~=1.43" \
+    && ln -s /opt/awscli/bin/aws /usr/local/bin/aws \
+    && rm -rf /var/cache/apk/*
 
 # Required to enable the helper to load IRSA roles
 ENV AWS_SDK_LOAD_CONFIG=1
 
-# AWScli
-RUN apk --no-cache --update add python3 py3-pip \
-    && pip install awscli~=1.18 \
-    && apk --purge -v del py-pip
-
 COPY latest/fetcher /fetcher
 
-ENTRYPOINT [ "/fetcher" ]
+ENTRYPOINT ["/fetcher"]
