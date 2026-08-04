@@ -1,5 +1,7 @@
 FROM alpine:3.23
 
+LABEL govpf.fromimage="alpine:3.23"
+LABEL govpf.category="utility"
 LABEL description="S3 archive fetcher"
 
 RUN apk --no-cache --update add \
